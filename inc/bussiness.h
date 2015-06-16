@@ -1,13 +1,10 @@
 #ifndef BUSSINESS_H
 #define BUSSINESS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <assert.h>
-#include <string.h>
-#include <syslog.h>
+#define LUA_MAIN_PATH "./lua/main.lua"
+#define LUA_LOGIN_PATH "./lua/login.lua"
 
 int main_service(char *buff);
+int business_lua(char *buff); 
 
 #endif  

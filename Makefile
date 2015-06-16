@@ -1,11 +1,9 @@
- .PHONY: build
- 
 # Which compiler
 CC = gcc
 
 INCLUDE = -Iinc
 
-LIBDIR =
+LIBDIR = -L/usr/lib64
 
 SRCDIR = src
 
@@ -13,9 +11,13 @@ OBJDIR = obj
 
 BINDIR = Debug
 
-LIBS =
+LIBS = -llua 
 
 OBJS = obj/main.o obj/server.o obj/child_svr.o obj/bussiness.o
+
+NAME= Server
+
+RESOURCE = resource/*
 
 # Option for developement
 CFLAGS = -g -Wall -ansi
@@ -24,8 +26,13 @@ CFLAGS = -g -Wall -ansi
 # CFLAGS = -O -Wall 
 
  
-build: $(BINDIR)/Server
+build: $(BINDIR)/$(NAME) copy
 
+copy: $(RESOURCE)
+	@echo 'Copy resource files'
+	cp -rf $(RESOURCE) $(BINDIR)/
+	@echo 'Finished copy resource files'
+	@echo
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo 'Building file: $<'
@@ -34,20 +41,18 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo 'Finished building: $<'
 	@echo
 
-$(BINDIR)/Server: $(OBJS) 
+$(BINDIR)/$(NAME): $(OBJS) 
 	@echo 'Building target: $@'
 	@echo 'Invoking: $(CC) Linker'
-	$(CC) -o $(BINDIR)/Server $(OBJS) $(LIBDIR) $(LIBS)
+	$(CC) -o $(BINDIR)/$(NAME) $(OBJS) $(LIBDIR) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-.PHONY: rebuild
+.PHONY: build rebuild clean copy
 
 rebuild: clean build
 
-.PHONY: clean
-
 clean:
-	-rm $(OBJDIR)/* 
-	-rm $(BINDIR)/*
+	-rm -rf $(OBJDIR)/* 
+	-rm -rf $(BINDIR)/*
 

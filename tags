@@ -1,0 +1,55 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BINDIR	./Makefile	/^BINDIR = Debug$/;"	m
+BUFF_SIZE	./inc/child_svr.h	8;"	d
+BUSSINESS_H	./inc/bussiness.h	2;"	d
+CC	./Makefile	/^CC = gcc$/;"	m
+CFLAGS	./Makefile	/^CFLAGS = -g -Wall -ansi$/;"	m
+CHILD_SVR_H	./inc/child_svr.h	2;"	d
+Child_svr	./inc/child_svr.h	/^}Child_svr;$/;"	t	typeref:struct:__anon3
+DEF_PORT	./inc/server.h	5;"	d
+INCLUDE	./Makefile	/^INCLUDE = -Iinc$/;"	m
+LIBDIR	./Makefile	/^LIBDIR = -L\/usr\/lib64$/;"	m
+LIBS	./Makefile	/^LIBS = -llua$/;"	m
+LISTENTQ	./inc/server.h	4;"	d
+LUA_LOGIN_PATH	./inc/bussiness.h	5;"	d
+LUA_MAIN_PATH	./inc/bussiness.h	4;"	d
+MAX_EPOLL_SIZE	./inc/child_svr.h	7;"	d
+NAME	./Makefile	/^NAME= Server$/;"	m
+OBJDIR	./Makefile	/^OBJDIR = obj$/;"	m
+OBJS	./Makefile	/^OBJS = obj\/main.o obj\/server.o obj\/child_svr.o obj\/bussiness.o$/;"	m
+Out_data	./inc/child_svr.h	/^}Out_data;$/;"	t	typeref:struct:__anon2
+RESOURCE	./Makefile	/^RESOURCE = lua$/;"	m
+SERVER_H	./inc/server.h	2;"	d
+SRCDIR	./Makefile	/^SRCDIR = src$/;"	m
+Server	./inc/server.h	/^} Server;$/;"	t	typeref:struct:__anon1
+addr	./inc/server.h	/^	struct sockaddr_in addr;$/;"	m	struct:__anon1	typeref:struct:__anon1::sockaddr_in
+buff	./inc/child_svr.h	/^    char *buff;$/;"	m	struct:__anon2
+business_lua	./src/bussiness.c	/^int business_lua(char *buff) $/;"	f
+child_svr_communication	./src/child_svr.c	/^void child_svr_communication(Child_svr *child_svr) {$/;"	f
+child_svr_epoll_add	./src/child_svr.c	/^int child_svr_epoll_add(Child_svr *child_svr, int fd) {$/;"	f
+child_svr_init_epoll	./src/child_svr.c	/^int child_svr_init_epoll(Child_svr *child_svr) {$/;"	f
+child_svr_initialization	./src/child_svr.c	/^void child_svr_initialization(Child_svr *child_svr, int listenfd) {$/;"	f
+child_svr_io_business	./src/child_svr.c	/^void child_svr_io_business(Child_svr *child_svr, int index) {$/;"	f
+child_svr_recv_msg	./src/child_svr.c	/^int child_svr_recv_msg(int sockfd, char *buff) {$/;"	f
+child_svr_send_msg	./src/child_svr.c	/^int child_svr_send_msg(int sockfd, char *buff) {$/;"	f
+child_svr_set_nonblock	./src/child_svr.c	/^int child_svr_set_nonblock(int fd) {$/;"	f
+epollfd	./inc/child_svr.h	/^    int epollfd;$/;"	m	struct:__anon3
+events	./inc/child_svr.h	/^    struct epoll_event events[MAX_EPOLL_SIZE];$/;"	m	struct:__anon3	typeref:struct:__anon3::epoll_event
+fd	./inc/child_svr.h	/^    int fd;$/;"	m	struct:__anon2
+ip	./inc/server.h	/^	char *ip;$/;"	m	struct:__anon1
+listenfd	./inc/child_svr.h	/^    int listenfd;$/;"	m	struct:__anon3
+listenfd	./inc/server.h	/^	int listenfd;$/;"	m	struct:__anon1
+main	./Debug/lua/main.lua	/^function main(buff)$/;"	f
+main	./lua/main.lua	/^function main(buff)$/;"	f
+main	./src/main.c	/^int main(int argc, char *argv[]) {$/;"	f
+main_service	./src/bussiness.c	/^int main_service(char *buff)$/;"	f
+port	./inc/server.h	/^	unsigned int port;$/;"	m	struct:__anon1
+server_create_child_svr	./src/server.c	/^void server_create_child_svr(Server *svr,int proNum)$/;"	f
+server_create_tcpsvr	./src/server.c	/^void server_create_tcpsvr(Server *svr)$/;"	f
+server_fill_sockaddr	./src/server.c	/^void server_fill_sockaddr(Server *svr)$/;"	f
+server_initialization	./src/server.c	/^void server_initialization(Server *svr,char *ip, int port)$/;"	f
