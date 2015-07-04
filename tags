@@ -10,19 +10,22 @@ BUSSINESS_H	./inc/bussiness.h	2;"	d
 CC	./Makefile	/^CC = gcc$/;"	m
 CFLAGS	./Makefile	/^CFLAGS = -g -Wall -ansi$/;"	m
 CHILD_SVR_H	./inc/child_svr.h	2;"	d
+CHILD_SVR_NUM	./inc/main.h	5;"	d
 Child_svr	./inc/child_svr.h	/^}Child_svr;$/;"	t	typeref:struct:__anon3
 DEF_PORT	./inc/server.h	5;"	d
+INCDIR	./Makefile	/^INCDIR = inc$/;"	m
 INCLUDE	./Makefile	/^INCLUDE = -Iinc$/;"	m
 LIBDIR	./Makefile	/^LIBDIR = -L\/usr\/lib64$/;"	m
 LIBS	./Makefile	/^LIBS = -llua $/;"	m
 LISTENTQ	./inc/server.h	4;"	d
-LUA_LOGIN_PATH	./inc/bussiness.h	5;"	d
 LUA_MAIN_PATH	./inc/bussiness.h	4;"	d
+MAIN_H	./inc/main.h	2;"	d
 MAX_EPOLL_SIZE	./inc/child_svr.h	7;"	d
 NAME	./Makefile	/^NAME= Server$/;"	m
 OBJDIR	./Makefile	/^OBJDIR = obj$/;"	m
 OBJS	./Makefile	/^OBJS = obj\/main.o obj\/server.o obj\/child_svr.o obj\/bussiness.o$/;"	m
 Out_data	./inc/child_svr.h	/^}Out_data;$/;"	t	typeref:struct:__anon2
+PORT	./inc/main.h	4;"	d
 RESOURCE	./Makefile	/^RESOURCE = resource\/*$/;"	m
 SERVER_H	./inc/server.h	2;"	d
 SRCDIR	./Makefile	/^SRCDIR = src$/;"	m
@@ -39,17 +42,15 @@ child_svr_recv_msg	./src/child_svr.c	/^int child_svr_recv_msg(int sockfd, char *
 child_svr_send_msg	./src/child_svr.c	/^int child_svr_send_msg(int sockfd, char *buff) {$/;"	f
 child_svr_set_nonblock	./src/child_svr.c	/^int child_svr_set_nonblock(int fd) {$/;"	f
 epollfd	./inc/child_svr.h	/^    int epollfd;$/;"	m	struct:__anon3
-error_404	./Debug/lua/main.lua	/^function error_404()$/;"	f
-error_404	./resource/lua/main.lua	/^function error_404()$/;"	f
 events	./inc/child_svr.h	/^    struct epoll_event events[MAX_EPOLL_SIZE];$/;"	m	struct:__anon3	typeref:struct:__anon3::epoll_event
-fail	./Debug/lua/main.lua	/^function fail()$/;"	f
-fail	./resource/lua/main.lua	/^function fail()$/;"	f
+fail	./Debug/main.lua	/^function fail()$/;"	f
+fail	./resource/main.lua	/^function fail()$/;"	f
 fd	./inc/child_svr.h	/^    int fd;$/;"	m	struct:__anon2
 ip	./inc/server.h	/^	char *ip;$/;"	m	struct:__anon1
 listenfd	./inc/child_svr.h	/^    int listenfd;$/;"	m	struct:__anon3
 listenfd	./inc/server.h	/^	int listenfd;$/;"	m	struct:__anon1
-main	./Debug/lua/main.lua	/^function main(buff)$/;"	f
-main	./resource/lua/main.lua	/^function main(buff)$/;"	f
+main	./Debug/main.lua	/^function main(buff)$/;"	f
+main	./resource/main.lua	/^function main(buff)$/;"	f
 main	./src/main.c	/^int main(int argc, char *argv[]) {$/;"	f
 main_service	./src/bussiness.c	/^int main_service(char *buff)$/;"	f
 port	./inc/server.h	/^	unsigned int port;$/;"	m	struct:__anon1
@@ -57,5 +58,5 @@ server_create_child_svr	./src/server.c	/^void server_create_child_svr(Server *sv
 server_create_tcpsvr	./src/server.c	/^void server_create_tcpsvr(Server *svr)$/;"	f
 server_fill_sockaddr	./src/server.c	/^void server_fill_sockaddr(Server *svr)$/;"	f
 server_initialization	./src/server.c	/^void server_initialization(Server *svr,char *ip, int port)$/;"	f
-success	./Debug/lua/main.lua	/^function success()$/;"	f
-success	./resource/lua/main.lua	/^function success()$/;"	f
+success	./Debug/main.lua	/^function success()$/;"	f
+success	./resource/main.lua	/^function success()$/;"	f
