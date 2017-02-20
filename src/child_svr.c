@@ -1,5 +1,6 @@
 #include "child_svr.h"
 #include "bussiness.h"
+#include "printnolog.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -23,7 +24,7 @@ void child_svr_initialization(Child_svr *child_svr, int listenfd) {
  * Communicate to client
  */
 void child_svr_communication(Child_svr *child_svr) {
-    /*printf("TCP SERVER IS WAITING!\n");*/
+    /*PRINTNOLOG("TCP SERVER IS WAITING!\n");*/
 	child_svr_init_epoll(child_svr);
 	child_svr_epoll_add(child_svr, child_svr -> listenfd);
 	while (1) {
@@ -78,13 +79,14 @@ int child_svr_set_nonblock(int fd) {
 	return 0;
 }
 
-/*
- * Respond for io change
+/**
+	对具体事件的处理
  */
 void child_svr_io_business(Child_svr *child_svr, int index) {
 	struct epoll_event ev = child_svr -> events[index];
-
-	if (ev.data.fd == child_svr -> listenfd) {
+	
+	if( ev.data.fd == child_svr -> listenfd )
+	{
 		int clt_fd = accept(child_svr -> listenfd, 0, 0);
 		if (clt_fd == EOF) {
 			perror("child_svr_io_business(), accept()");
@@ -96,36 +98,48 @@ void child_svr_io_business(Child_svr *child_svr, int index) {
 		if (child_svr_epoll_add(child_svr, clt_fd) == EOF) {
 			return;
 		}
-	} else if (ev.events & EPOLLIN) {
+	}
+	else if ( ev.events & EPOLLIN )
+	{
 		char *buff = (char *) malloc(BUFF_SIZE);
 		memset(buff, 0, BUFF_SIZE);
 		int len = child_svr_recv_msg(ev.data.fd, buff);
-		if (len == EOF) {
+		
+		if( len == EOF )
+		{
 			perror("child_svr_io_business(), recv_msg()");
 			free(buff);
 			return;
-		} else if (len == 0) {
-			printf("Connection break!\n");
+		}
+		else if (len == 0)
+		{
+			PRINTNOLOG("Connection break!\n");
 			epoll_ctl(child_svr -> epollfd, EPOLL_CTL_DEL, ev.data.fd, &ev);
 			close(ev.data.fd);
 			free(buff);
 			return;
 		}
-		if(main_service(buff) > 0){
+		if(main_service(buff) > 0)
+		{
 		    Out_data *data = (Out_data*) malloc(sizeof(Out_data));
 		    data -> fd = ev.data.fd;
 		    data -> buff = buff;
 		    ev.data.ptr = data;
 		    ev.events = EPOLLET | EPOLLOUT;
-		    if (epoll_ctl(child_svr -> epollfd, EPOLL_CTL_MOD, data -> fd, &ev)
-			    	== EOF) {
+		    
+		    if( epoll_ctl(child_svr -> epollfd, EPOLL_CTL_MOD, data -> fd, &ev) == EOF )
+		    {
 			    perror("child_svr_io_business(), modify one event out");
 			    return;
 		    }
-        }else{
+        }
+        else
+        {
             free(buff);
         }
-	} else if (ev.events & EPOLLOUT) {
+	}
+	else if (ev.events & EPOLLOUT)
+	{
 		Out_data *data = (Out_data *) ev.data.ptr;
 
 		if (EOF == child_svr_send_msg(data -> fd, data -> buff)) {
@@ -133,8 +147,8 @@ void child_svr_io_business(Child_svr *child_svr, int index) {
 		}
 		ev.data.fd = data -> fd;
 		ev.events = EPOLLET | EPOLLIN;
-		if (epoll_ctl(child_svr -> epollfd, EPOLL_CTL_MOD, ev.data.fd, &ev)
-				== EOF) {
+		if (epoll_ctl(child_svr -> epollfd, EPOLL_CTL_MOD, ev.data.fd, &ev) == EOF)
+		{
 			perror("child_svr_io_business(), modify one event in");
 			return;
 		}
@@ -150,22 +164,23 @@ void child_svr_io_business(Child_svr *child_svr, int index) {
 int child_svr_recv_msg(int sockfd, char *buff) {
 	assert(buff);
 	FILE *fp;
-	if ((fp = fdopen(sockfd, "r+")) == NULL) {
+	if( ( fp = fdopen(sockfd, "r+") ) == NULL )
+	{
 		perror("child_svr_recv_msg(),fdopen()");
 		return EOF;
 	}
-	if (fread(buff, BUFF_SIZE, 1, fp) == EOF) {
+	if( fread(buff, BUFF_SIZE, 1, fp) == EOF )
+	{
 		perror("child_svr_recv_msg(),fread()");
 		return EOF;
 	}
-	printf("Receive message:\n%s\n", buff);
+	PRINTNOLOG("Receive message:\n%s\n", buff);
 	return strlen(buff);
 }
 
 /**
  * Send message,return length
  */
-
 int child_svr_send_msg(int sockfd, char *buff) {
 	assert(buff);
 	FILE *fp;
@@ -178,7 +193,6 @@ int child_svr_send_msg(int sockfd, char *buff) {
 		return EOF;
 	}
 	fflush(fp);
-	printf("Send message:\n%s\n", buff);
+	PRINTNOLOG("Send message:\n%s\n", buff);
 	return strlen(buff);
 }
-

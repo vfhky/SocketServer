@@ -1,17 +1,18 @@
 # Which compiler
 CC = gcc
 
-INCLUDE = -Iinc
+LD_PRELOAD=/usr/lib64/liblua-5.1.so
+INCLUDE = -Iinc -I/home/vfhky/include/test/
 
 LIBDIR = -L/usr/lib64
 
-LIBS = -llua 
+LIBS = -llua -ldl -lm -lprintnolog
 
 SRCDIR = src
 
 OBJDIR = obj
 
-BINDIR = Debug
+BINDIR = bin
 
 INCDIR = inc
 
@@ -22,7 +23,7 @@ NAME= Server
 RESOURCE = resource/*
 
 # Option for developement
-CFLAGS = -g -Wall -ansi
+CFLAGS = -g -Wall -ansi -DLUA_32BITS
 
 # Option for release
 # CFLAGS = -O -Wall 
